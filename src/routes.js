@@ -1,0 +1,4 @@
+const express = resquire('express');
+const router = express.Router();
+
+module.exports = router
