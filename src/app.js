@@ -6,7 +6,7 @@ const config = require('../config');
 const app = express();
 const connection = mysql.createConnection(config);
 
-// Rota para buscar todas as bicicletas
+
 app.get('/bicicletas', (req, res) => {
     connection.query('SELECT * FROM bicicletas', (err, results) => {
         if (err) {
@@ -18,7 +18,7 @@ app.get('/bicicletas', (req, res) => {
     });
 });
 
-// Rota para buscar bicicleta por ID
+
 app.get('/bicicletas/:id', (req, res) => {
     const id = parseInt(req.params.id);
     connection.query('SELECT * FROM bicicletas WHERE id = ?', [id], (err, results) => {
@@ -33,7 +33,7 @@ app.get('/bicicletas/:id', (req, res) => {
     });
 });
 
-// Rota para adicionar bicicleta
+
 app.post('/bicicletas', (req, res) => {
     const { marca, modelo, preco } = req.body;
     connection.query('INSERT INTO bicicletas (marca, modelo, preco) VALUES (?, ?, ?)', [marca, modelo, preco], (err, results) => {
@@ -46,7 +46,7 @@ app.post('/bicicletas', (req, res) => {
     });
 });
 
-// Rota para atualizar bicicleta
+
 app.put('/bicicletas/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const { marca, modelo, preco } = req.body;
@@ -63,7 +63,7 @@ app.put('/bicicletas/:id', (req, res) => {
     });
 });
 
-// Rota para remover bicicleta
+
 app.delete('/bicicletas/:id', (req, res) => {
     const id = parseInt(req.params.id);
 
@@ -78,6 +78,8 @@ app.delete('/bicicletas/:id', (req, res) => {
         }
     });
 });
-// Iniciar o servidor
+
 app.listen(3000, () => console.log('Servidor em execução na porta 3000'));
+
+
 
