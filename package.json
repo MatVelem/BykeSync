@@ -5,7 +5,7 @@
   "main": "./src/app.js",
   "scripts": {
     "start": "nodemon ./src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +19,7 @@
     "mysql2": "^3.9.7"
   },
   "devDependencies": {
-    "mocha": "^10.4.0",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "sinon": "^17.0.1"
   }
 }
