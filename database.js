@@ -9,7 +9,7 @@ password: process.env.MYSQL_PASSWORD,
 database: process.env.MYSQL_DATABASE
 }).promise()
 
-async function mostrarbicicleta() {
+async function mostrarbicicleta(callback) {
 
 const [rows] = await pool.query('Select * FROM bicicletas')
 return [rows]
@@ -31,3 +31,4 @@ const mostrar = await mostrarbicicleta();
 //const criar =  await criarbicicleta("4m","caloi","vermelho",4500.45,4,null,"melhor bike do mercado");
 //const pegar = await pegarbicicleta(3);
 console.log(mostrar)
+export { mostrarbicicleta }
