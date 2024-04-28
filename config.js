@@ -1,6 +1,6 @@
-module.exports = {
+export default {
     host: 'localhost',
     user: 'root',
     password: 'admin',
-    database: 'compra_bicicleta' 
-};
+    database: 'compra_bicicletas'
+  };

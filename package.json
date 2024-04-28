@@ -2,21 +2,26 @@
   "name": "marketcycling",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon ./src/server,js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon src/index.js",
+    "test": "nodemon"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "config": "^3.3.11",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^5.0.0-alpha.2",
+    "express": "^4.19.2",
     "mysql": "^2.18.1",
     "mysql2": "^3.9.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "sinon": "^17.0.1"
   }
 }
