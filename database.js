@@ -32,4 +32,25 @@ export async function createNote(marca, modelo, cor, preco, estoque, foto, descr
     const id = result.insertId;
     return getNote(id);
   }
+
+  export async function createUser(nome, email, senha, endereco, telefone, tipo_usuario, foto) {
+    const [result] = await pool.query(`
+      INSERT INTO usuarios (nome, email, senha, endereco, telefone, tipo_usuario)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `, [nome, email, senha, endereco, telefone, tipo_usuario]);
+    const id = result.insertId;
+    return getUser(id);
+  }
+  
+  export async function getUser(id) {
+    const [rows] = await pool.query(`
+      SELECT * 
+      FROM usuarios
+      WHERE id = ?
+    `, [id]);
+    return rows[0];
+  }
+  
+  
+  
   
