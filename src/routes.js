@@ -73,39 +73,4 @@ router.delete('/bicicletas/:id', (req, res) => {
     });
 });
 
-
-
-
-import express from 'express';
-import { createUser, getUser } from './controllers/userController.js';
-
-
-// Rota para cadastrar um novo usuário
-router.post('/usuarios', async (req, res) => {
-    try {
-        const { nome, email, senha, endereco, telefone, tipo_usuario, foto } = req.body;
-        const usuario = await createUser(nome, email, senha, endereco, telefone, tipo_usuario, foto);
-        res.status(201).json(usuario);
-    } catch (error) {
-        console.error('Erro ao cadastrar usuário:', error);
-        res.status(500).send('Erro ao cadastrar usuário');
-    }
-});
-
-// Rota para obter um usuário pelo ID
-router.get('/usuarios/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        const usuario = await getUser(id);
-        if (!usuario) {
-            res.status(404).send('Usuário não encontrado');
-        } else {
-            res.status(200).json(usuario);
-        }
-    } catch (error) {
-        console.error('Erro ao obter usuário:', error);
-        res.status(500).send('Erro ao obter usuário');
-    }
-});
-
 export default router;

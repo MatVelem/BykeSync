@@ -26,7 +26,7 @@ const app = express();
 
 app.use(express.json());
 
-// Use as rotas definidas no arquivo routes.js
+
 
 
 export default app; // Exporte o app como padrão
