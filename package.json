@@ -28,11 +28,9 @@
     "nodemon": "^3.1.0",
     "sinon": "^17.0.1"
   },
-  
-    "jest": {
-      "transform": {
-        "^.+\\.jsx?$": "babel-jest"
-      }
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
     }
-  
+  }
 }
