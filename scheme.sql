@@ -1,5 +1,10 @@
-CREATE DATABASE IF NOT EXISTS compra_bicicleta;
-USE compra_bicicleta;
+--código do banco de dados 
+
+-- Criar banco de dados
+CREATE DATABASE IF NOT EXISTS compra_bicicletas;
+
+-- Usar banco de dados
+USE compra_bicicletas;
 
 -- Criar tabela de bicicletas
 CREATE TABLE bicicletas (
@@ -120,11 +125,8 @@ CREATE TABLE mecanicos_servicos (
   PRIMARY KEY (mecanico_id, tipo_servico_id),
   FOREIGN KEY (mecanico_id) REFERENCES mecanicos (id),
   FOREIGN KEY (tipo_servico_id) REFERENCES tipos_servico (id)
-  );
-  
- 
+);
 
-
-
-
-
+INSERT INTO bicicletas (id, marca, modelo, cor, preco, estoque, foto, descricao) VALUES (0,"caloi","rx580","mateus",920.4,5,null,"essa aqui é a bike do momento")
+INSERT INTO bicicletas (id, marca, modelo, cor, preco, estoque, foto, descricao) VALUES (2,"macha","titanium","rocket",3250.4,6,null,"bike mais top")
+DELETE FROM bicicletas WHERE id = 
