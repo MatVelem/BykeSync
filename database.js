@@ -25,13 +25,13 @@ export async function mostrarbicicleta(id) {
 }
 
 export async function criarbicicleta(marca, modelo, cor, preco, estoque, foto, descricao) {
-    const [result] = await pool.query(`
-      INSERT INTO bicicletas (marca, modelo, cor, preco, estoque, foto, descricao)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
-    `, [marca, modelo, cor, preco, estoque, foto, descricao]);
-    const id = result.insertId;
-    return getNote(id);
-  }
+  const [result] = await pool.query(`
+    INSERT INTO bicicletas (marca, modelo, cor, preco, estoque, foto, descricao)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `, [marca, modelo, cor, preco, estoque, foto, descricao]);
+  const id = result.insertId;
+  return id; 
+}
 
   export async function criarusuario(nome, email, senha, endereco, telefone, tipo_usuario, foto) {
     const [result] = await pool.query(`
