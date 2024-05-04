@@ -50,6 +50,12 @@ export async function criarbicicleta(marca, modelo, cor, preco, estoque, foto, d
     `, [id]);
     return rows[0];
   }
+
+  export async function apagarBicicleta(id) {
+    await pool.query(`
+      DELETE FROM bicicletas WHERE id = ?
+    `, [id]);
+}
   
   
   
