@@ -1,3 +1,6 @@
+import { criarbicicleta, mostrarbicicleta, apagarBicicleta  } from '../database';
+
+
 import { criarusuario } from "../database";
 //import { mostrarbicicleta } from '../database';
 //import { pegarbicicleta } from '../database';
