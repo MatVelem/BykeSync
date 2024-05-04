@@ -51,6 +51,10 @@ export async function criarbicicleta(marca, modelo, cor, preco, estoque, foto, d
     return rows[0];
   }
   
-  
+  export async function criarusuario(id) {
+    await pool.query(`
+      DELETE FROM bicicletas WHERE id = ?
+    `, [id]);
+}
   
   
