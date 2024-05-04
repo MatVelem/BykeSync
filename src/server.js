@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import routes from './routes.mjs';
+
 
 dotenv.config({path:'variaveis.env'});
 

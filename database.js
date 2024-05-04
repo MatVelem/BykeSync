@@ -15,7 +15,7 @@ export async function getNotes() {
   return rows
 }
 
-export async function getNote(id) {
+export async function mostrarbicicleta(id) {
   const [rows] = await pool.query(`
   SELECT * 
   FROM bicicletas
@@ -24,7 +24,7 @@ export async function getNote(id) {
   return rows[0]
 }
 
-export async function createNote(marca, modelo, cor, preco, estoque, foto, descricao) {
+export async function criarbicicleta(marca, modelo, cor, preco, estoque, foto, descricao) {
     const [result] = await pool.query(`
       INSERT INTO bicicletas (marca, modelo, cor, preco, estoque, foto, descricao)
       VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -33,7 +33,7 @@ export async function createNote(marca, modelo, cor, preco, estoque, foto, descr
     return getNote(id);
   }
 
-  export async function createUser(nome, email, senha, endereco, telefone, tipo_usuario, foto) {
+  export async function criarusuario(nome, email, senha, endereco, telefone, tipo_usuario, foto) {
     const [result] = await pool.query(`
       INSERT INTO usuarios (nome, email, senha, endereco, telefone, tipo_usuario)
       VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -42,7 +42,7 @@ export async function createNote(marca, modelo, cor, preco, estoque, foto, descr
     return getUser(id);
   }
   
-  export async function getUser(id) {
+  export async function mostrarusuario(id) {
     const [rows] = await pool.query(`
       SELECT * 
       FROM usuarios
