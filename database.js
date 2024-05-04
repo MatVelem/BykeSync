@@ -10,10 +10,6 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE
 }).promise()
 
-export async function getNotes() {
-  const [rows] = await pool.query("SELECT * FROM bicicletas")
-  return rows
-}
 
 export async function mostrarbicicleta(id) {
   const [rows] = await pool.query(`
@@ -32,15 +28,14 @@ export async function criarbicicleta(marca, modelo, cor, preco, estoque, foto, d
   const id = result.insertId;
   return id; 
 }
-
-  export async function criarusuario(nome, email, senha, endereco, telefone, tipo_usuario, foto) {
-    const [result] = await pool.query(`
-      INSERT INTO usuarios (nome, email, senha, endereco, telefone, tipo_usuario)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
-    `, [nome, email, senha, endereco, telefone, tipo_usuario]);
-    const id = result.insertId;
-    return getUser(id);
-  }
+export async function criarusuario(nome, email, senha, endereco, telefone, tipo_usuario, foto) {
+  const [result] = await pool.query(`
+    INSERT INTO usuarios (nome, email, senha, endereco, telefone, tipo_usuario)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `, [nome, email, senha, endereco, telefone, tipo_usuario, foto]);
+  const id = result.insertId;
+  return id; // Retorna o ID do usuário criado
+}
   
   export async function mostrarusuario(id) {
     const [rows] = await pool.query(`
@@ -57,10 +52,10 @@ export async function criarbicicleta(marca, modelo, cor, preco, estoque, foto, d
     `, [id]);
 }
   
-  export async function criarusuario(id) {
-    await pool.query(`
-      DELETE FROM bicicletas WHERE id = ?
-    `, [id]);
+export async function apagarUsuario(id) {
+  await pool.query(`
+    DELETE FROM usuarios WHERE id = ?
+  `, [id]);
 }
   
   

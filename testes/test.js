@@ -1,28 +1,24 @@
-import { criarbicicleta, mostrarbicicleta, apagarBicicleta  } from '../database';
+import { criarbicicleta, mostrarbicicleta, apagarBicicleta, criarusuario, apagarUsuario  } from '../database';
 
 
-import { criarusuario } from "../database";
-//import { mostrarbicicleta } from '../database';
-//import { pegarbicicleta } from '../database';
-//import { criarbicicleta } from '../database';
-/*describe('mostrarbicicleta', () => {
-  test('deve retornar uma lista de bicicletas', async () => {
-    const result = await mostrarbicicleta();
-    expect(Array.isArray(result)).toBe(true); // Verifica se o resultado é um array
-    // Adicione mais asserções conforme necessário
+
+
+describe('criarusuario', () => {
+  let idCriado; 
+
+  test('Deve criar um usuário e retornar o ID', async () => {
+    idCriado = await criarusuario('João', 'joao@example.com', 'senha123', 'Rua A, 123', '123456789', 'cliente', 'foto.jpg');
+    expect(idCriado).toBeGreaterThan(0); // Verifica se o ID retornado é maior que zero
+  });
+
+  afterAll(async () => {
+    if (idCriado) {
+      await apagarUsuario(idCriado); 
+    }
   });
 });
-*/
-//teste de usuario
-export async function criarusuario(nome, email, senha, endereco, telefone, tipo_usuario, foto) {
-  const [result] = await pool.query(`
-    INSERT INTO usuarios (nome, email, senha, endereco, telefone, tipo_usuario)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-  `, [nome, email, senha, endereco, telefone, tipo_usuario]);
-  const id = result.insertId;
-  return getUser(id);
-}
-/*describe('mostrarbicicleta', () => {
+
+describe('mostrarbicicleta', () => {
   test('deve retornar uma bicicleta com o ID fornecido', async () => {
     const id = 1; // 
     const result = await mostrarbicicleta(id);
@@ -31,12 +27,19 @@ export async function criarusuario(nome, email, senha, endereco, telefone, tipo_
 
 });
 
+describe('criarbicicleta', () => {
+  let idCriado; 
 
-/*describe('criarbicicleta', () => {
-  test('deve criar uma nova bicicleta e retornar o ID', async () => {
-    const novaBicicleta = { marca: 'Caloi', modelo: 'Sport', cor: 'Preto', preco: 1500, estoque: 5, foto: 'example.jpg', descricao: 'Bicicleta esportiva' };
-    const result = await criarbicicleta(novaBicicleta.marca, novaBicicleta.modelo, novaBicicleta.cor, novaBicicleta.preco, novaBicicleta.estoque, novaBicicleta.foto, novaBicicleta.descricao);
-    expect(result).toBeGreaterThan(0); // Verifica se o ID retornado é maior que zero
-    // Adicione mais asserções conforme necessário
+  test('Deve criar uma bicicleta e mostrar o id', async () => {
+    const result = await criarbicicleta('bruno','mateus','roxo',15458.4,5,null,'pelo amor de deus');
+    expect(result).toBeDefined();
+    idCriado = result; 
   });
-});*/
+
+
+  afterAll(async () => {
+    if (idCriado) {
+      await apagarBicicleta(idCriado);
+    }
+  });
+});

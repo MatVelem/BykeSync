@@ -3,7 +3,7 @@ import { mostrarbicicleta } from '../database.js';
 
 const router = express.Router();
 
-// Rota para buscar todas as bicicletas
+
 router.get('/bicicletas', async (req, res) => {
     try {
         const bicicletas = await mostrarbicicleta();
@@ -14,7 +14,6 @@ router.get('/bicicletas', async (req, res) => {
     }
 });
 
-// Rota para buscar uma bicicleta por ID
 router.get('/bicicletas/:id', (req, res) => {
     const id = parseInt(req.params.id);
     connection.query('SELECT * FROM bicicletas WHERE id = ?', [id], (err, results) => {
@@ -29,7 +28,7 @@ router.get('/bicicletas/:id', (req, res) => {
     });
 });
 
-// Rota para adicionar uma bicicleta
+
 router.post('/bicicletas', (req, res) => {
     const { marca, modelo, cor, preco, estoque, foto, descricao } = req.body;
     connection.query('INSERT INTO bicicletas (marca, modelo, cor, preco, estoque, foto, descricao) VALUES (?, ?, ?, ?, ?, ?, ?)', [marca, modelo, cor, preco, estoque, foto, descricao], (err, results) => {
@@ -42,7 +41,7 @@ router.post('/bicicletas', (req, res) => {
     });
 });
 
-// Rota para atualizar uma bicicleta por ID
+
 router.put('/bicicletas/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const { marca, modelo, cor, preco, estoque, foto, descricao } = req.body;
@@ -58,7 +57,7 @@ router.put('/bicicletas/:id', (req, res) => {
     });
 });
 
-// Rota para remover uma bicicleta por ID
+
 router.delete('/bicicletas/:id', (req, res) => {
     const id = parseInt(req.params.id);
     connection.query('DELETE FROM bicicletas WHERE id = ?', [id], (err, results) => {
