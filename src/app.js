@@ -1,6 +1,6 @@
 import express from 'express';
 import mysql from 'mysql2';
-import config from './config.js';
+import config from '../config.js';
 import bodyParser from 'body-parser';
 
 

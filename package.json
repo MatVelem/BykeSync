@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "async-storage": "^0.1.0",
+    "axios": "^1.7.2",
     "body-parser": "^1.20.2",
     "config": "^3.3.11",
     "cors": "^2.8.5",
