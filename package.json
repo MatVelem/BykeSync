@@ -18,9 +18,11 @@
     "config": "^3.3.11",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "expo": "^51.0.16",
     "express": "^4.19.2",
     "mysql": "^2.18.1",
-    "mysql2": "^3.9.7"
+    "mysql2": "^3.9.7",
+    "metro": "~0.80.8"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.24.4",
