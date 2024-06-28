@@ -2,6 +2,7 @@ import express from 'express';
 import mysql from 'mysql2';
 import config from '../config.js';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 
 const databaseHost = config.host;
@@ -23,6 +24,12 @@ function database(config) {
 
 const app = express();
 
+app.use(cors({
+    origin: 'http://localhost:19006', // Substitua pela URL do seu frontend React Native
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }));
+  
 
 app.use(express.json());
 
