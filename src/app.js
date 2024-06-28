@@ -39,8 +39,6 @@ const connection = mysql.createConnection(config);
 
 
 
-const PORT = process.env.PORT || 3006;
-app.listen(PORT, () => console.log(`Servidor em execução na porta ${PORT}`));
 
 
 app.post('/form', (req, res) => {
