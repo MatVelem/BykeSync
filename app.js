@@ -9,6 +9,29 @@ const databaseUser = config.user;
 const databasePassword = config.password;
 const databaseName = config.database;
 
+import React, { useEffect, useState } from 'react';
+
+function App() {
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    fetch('http://localhost:3006/Users/Mateus/Desktop/Trabalho/MarketCycling')
+      .then(response => response.json())
+      .then(data => setMessage(data.message))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
+  return (
+    <div className="App">
+      <h1>Bem vindo ao MarketCycling</h1>
+    </div>
+  );
+}
+
+
+    
+
+
 function database(config) {
   const connection = mysql.createConnection(config);
   connection.connect((err) => {
@@ -44,77 +67,77 @@ app.get('/', (req, res) => {
 app.use(express.json());
 
 app.get('/bicicletas', (req, res) => {
-    // Lógica para lidar com a rota GET /bicicletas
+   
 });
 
 app.get('/bicicletas/:id', (req, res) => {
-    // Lógica para lidar com a rota GET /bicicletas/:id
+   
 });
 
 app.post('/bicicletas', (req, res) => {
-    // Lógica para lidar com a rota POST /bicicletas
+    
 });
 
 app.put('/bicicletas/:id', (req, res) => {
-    // Lógica para lidar com a rota PUT /bicicletas/:id
+    
 });
 
 app.delete('/bicicletas/:id', (req, res) => {
-    // Lógica para lidar com a rota DELETE /bicicletas/:id
+    
 });
 
 app.post('/usuarios', async (req, res) => {
-    // Lógica para lidar com a rota POST /usuarios
+    
 });
 
 app.get('/usuarios/:id', async (req, res) => {
-    // Lógica para lidar com a rota GET /usuarios/:id
+    
 });
 
-const PORT = process.env.PORT || 3006;
+const PORT = process.env.PORT || 3007;
 app.listen(PORT, () => console.log(`Servidor em execução na porta ${PORT}`));
 
 
 app.post('/form', (req, res) => {
     const { obrigatorio, naoObrigatorio, email } = req.body;
 
-    // Validar campos obrigatórios
+    
     if (!obrigatorio) {
         return res.status(400).json({ error: 'Campo obrigatório não fornecido' });
     }
 
-    // Validar tipos válidos
+ 
     if (email && !isValidEmail(email)) {
         return res.status(400).json({ error: 'Endereço de e-mail inválido' });
     }
 
-    // Se todos os campos passarem pelas validações, continue com o processamento
-    // Seu código para lidar com os dados do formulário...
+    
+    
 });
 
 function isValidEmail(email) {
-    // Implemente sua lógica de validação de e-mail aqui
-    // Esta é apenas uma implementação de exemplo básica
+   
+    
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
 
-// Middleware para processar corpos de requisição
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Rota para excluir um registro
+
 app.delete('/registros/:id', (req, res) => {
     const id = req.params.id;
-    // Verificar se o usuário confirmou a exclusão
-    const confirmacao = req.query.confirmacao; // Se estiver usando query string
-    // Se a confirmação for verdadeira, exclua o registro
+   
+    const confirmacao = req.query.confirmacao; 
+    
     if (confirmacao === 'true') {
-        // Lógica para excluir o registro do banco de dados
-        // ...
+        
+       
         res.status(200).send('Registro excluído com sucesso');
     } else {
-        // Se o usuário não confirmar, envie uma resposta indicando cancelamento da operação
+       
         res.status(400).send('Exclusão cancelada pelo usuário');
     }
 });
