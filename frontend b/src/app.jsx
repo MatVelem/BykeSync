@@ -18,13 +18,30 @@ function App() {
     const fetchData = async () => {
       await fetchBicicletas();
     };
-    fetchData(); // Chamada inicial
+    fetchData();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchBicicletas]); // Dependência agora é apenas fetchBicicletas
+  }, [fetchBicicletas]);
 
   const handleSearch = async () => {
     await fetchBicicletas();
+  };
+
+  const handleFileUpload = async (id, event) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('bicicletaImage', file);
+
+    try {
+      const response = await fetch(`http://localhost:3006/bicicletas/upload/${id}`, {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.text();
+      console.log(data); // Confirmação do upload no console
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
   };
 
   return (
@@ -75,6 +92,12 @@ function App() {
                     <p className="card-text">Modelo: {bicicleta.modelo}</p>
                     <p className="card-text">Cor: {bicicleta.cor}</p>
                     <p className="card-text">Preço: {bicicleta.preco}</p>
+                    <div>
+                      {/* Adicionando botão de upload de foto apenas quando estiver criando uma nova bicicleta */}
+                      {window.location.pathname === '/bicicletas' && (
+                        <input type="file" onChange={(e) => handleFileUpload(bicicleta.id, e)} />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
