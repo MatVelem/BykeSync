@@ -1,6 +1,6 @@
-import app from './app.js';
+import app from '../app.js';
 
-const PORT =  3001;
+const PORT =  3006;
 
 // Define a rota antes de iniciar o servidor
 app.get('/', (req, res) => {
