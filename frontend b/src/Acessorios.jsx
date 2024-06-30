@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const Acessorios = () => {
   const [acessorios, setAcessorios] = useState([]);
-  const [newAcessorio, setNewAcessorio] = useState({ tipo: '', preco: '' });
+  const [newAcessorio, setNewAcessorio] = useState({ tipo: '', preco: '', marca: '', imagem: '' });
   const [editingAcessorio, setEditingAcessorio] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -27,17 +27,12 @@ const Acessorios = () => {
   // Função para adicionar um novo acessório
   const handleAddAcessorio = async () => {
     try {
-      const novoAcessorio = {
-        tipo: newAcessorio.tipo,
-        preco: newAcessorio.preco,
-      };
-
       const response = await fetch('http://localhost:3006/acessorios', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(novoAcessorio),
+        body: JSON.stringify(newAcessorio),
       });
 
       if (!response.ok) {
@@ -47,7 +42,7 @@ const Acessorios = () => {
 
       const data = await response.json();
       setAcessorios([...acessorios, data]);
-      setNewAcessorio({ tipo: '', preco: '' });
+      setNewAcessorio({ tipo: '', preco: '', marca: '', imagem: '' }); // Limpar campos
     } catch (error) {
       console.error('Erro ao adicionar acessório:', error);
     }
@@ -117,6 +112,18 @@ const Acessorios = () => {
           onChange={(e) => setNewAcessorio({ ...newAcessorio, preco: e.target.value })}
           placeholder="Preço"
         />
+        <input
+          type="text"
+          value={newAcessorio.marca}
+          onChange={(e) => setNewAcessorio({ ...newAcessorio, marca: e.target.value })}
+          placeholder="Marca"
+        />
+        <input
+          type="text"
+          value={newAcessorio.imagem}
+          onChange={(e) => setNewAcessorio({ ...newAcessorio, imagem: e.target.value })}
+          placeholder="URL da Imagem"
+        />
         <button className="btn btn-success ms-2" onClick={handleAddAcessorio}>
           Adicionar
         </button>
@@ -139,6 +146,7 @@ const Acessorios = () => {
         {filteredAcessorios.map((acessorio) => (
           <div key={acessorio.id} className="col-md-4">
             <div className="card mb-4">
+              {acessorio.imagem && <img src={acessorio.imagem} className="card-img-top" alt="Imagem do acessório" />}
               <div className="card-body">
                 {editingAcessorio && editingAcessorio.id === acessorio.id ? (
                   <div>
@@ -154,6 +162,18 @@ const Acessorios = () => {
                       onChange={(e) => setEditingAcessorio({ ...editingAcessorio, preco: e.target.value })}
                       placeholder="Preço"
                     />
+                    <input
+                      type="text"
+                      value={editingAcessorio.marca}
+                      onChange={(e) => setEditingAcessorio({ ...editingAcessorio, marca: e.target.value })}
+                      placeholder="Marca"
+                    />
+                    <input
+                      type="text"
+                      value={editingAcessorio.imagem}
+                      onChange={(e) => setEditingAcessorio({ ...editingAcessorio, imagem: e.target.value })}
+                      placeholder="URL da Imagem"
+                    />
                     <button className="btn btn-success ms-2" onClick={() => handleEditAcessorio(acessorio.id)}>
                       Salvar
                     </button>
@@ -164,7 +184,8 @@ const Acessorios = () => {
                 ) : (
                   <div>
                     <h5 className="card-title">{acessorio.tipo}</h5>
-                    <p className="card-text">Preço: {acessorio.preco}</p>
+                    <p className="card-text">Preço: R$ {acessorio.preco}</p>
+                    <p className="card-text">Marca: {acessorio.marca}</p>
                     <div>
                       <button className="btn btn-primary" onClick={() => setEditingAcessorio(acessorio)}>
                         Editar
