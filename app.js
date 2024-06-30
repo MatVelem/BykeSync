@@ -6,13 +6,10 @@ import cors from 'cors';
 
 const app = express();
 
-
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Database connection setup
 const connection = mysql.createConnection({
   host: config.host,
   user: config.user,
@@ -22,15 +19,13 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
   if (err) {
-    console.error('Error connecting to database:', err);
-    throw new Error('Database connection failed');
+    console.error('Erro ao conectar ao banco de dados:', err);
+    throw new Error('Falha na conexão com o banco de dados');
   }
-  console.log('Connected to the database successfully');
+  console.log('Conectado ao banco de dados com sucesso');
 });
 
-// Routes
-
-// GET bikes by search term
+// Rota para buscar bicicletas por termo de pesquisa
 app.get('/bicicletas', (req, res) => {
   const searchTerm = req.query.q || '';
 
@@ -48,42 +43,106 @@ app.get('/bicicletas', (req, res) => {
   });
 });
 
-// POST form data processing
-app.post('/form', (req, res) => {
-  const { obrigatorio, email } = req.body;
+// Rota para adicionar uma nova bicicleta
+app.post('/bicicletas', (req, res) => {
+  const { marca, modelo, cor, preco } = req.body;
 
-  if (!obrigatorio) {
-    return res.status(400).json({ error: 'Campo obrigatório não fornecido' });
-  }
-
-  if (email && !isValidEmail(email)) {
-    return res.status(400).json({ error: 'Endereço de e-mail inválido' });
-  }
-
-  res.status(200).send('Form data processed successfully');
+  const sql = 'INSERT INTO bicicletas (marca, modelo, cor, preco) VALUES (?, ?, ?, ?)';
+  connection.query(sql, [marca, modelo, cor, preco], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Erro ao adicionar bicicleta.');
+    }
+    const newBicicleta = { id: result.insertId, marca, modelo, cor, preco };
+    res.status(201).json(newBicicleta);
+  });
 });
 
-// DELETE registro
-app.delete('/registros/:id', (req, res) => {
+// Rota para atualizar uma bicicleta existente
+app.put('/bicicletas/:id', (req, res) => {
   const { id } = req.params;
-  const confirmacao = req.query.confirmacao;
+  const { marca, modelo, cor, preco } = req.body;
 
-  if (confirmacao === 'true') {
-    // Handle deletion from the database
-    res.status(200).send('Registro excluído com sucesso');
-  } else {
-    res.status(400).send('Exclusão cancelada pelo usuário');
-  }
+  const sql = 'UPDATE bicicletas SET marca = ?, modelo = ?, cor = ?, preco = ? WHERE id = ?';
+  connection.query(sql, [marca, modelo, cor, preco, id], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Erro ao atualizar bicicleta.');
+    }
+    const updatedBicicleta = { id, marca, modelo, cor, preco };
+    res.status(200).json(updatedBicicleta);
+  });
 });
 
-// Additional routes (accessories, users, purchases, services, mechanics, appointments, rentals, service types) can be similarly defined
+// Rota para excluir uma bicicleta
+app.delete('/bicicletas/:id', (req, res) => {
+  const { id } = req.params;
 
-// Helper function to validate email format
-function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
+  const sql = 'DELETE FROM bicicletas WHERE id = ?';
+  connection.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Erro ao excluir bicicleta.');
+    }
+    res.status(200).send('Bicicleta excluída com sucesso');
+  });
+});
 
+// Rota para buscar acessórios
+app.get('/acessorios', (req, res) => {
+  const sql = 'SELECT * FROM acessorios';
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Erro ao buscar acessórios.');
+    }
+    res.status(200).json(results);
+  });
+});
 
+// Rota para adicionar um novo acessório
+app.post('/acessorios', (req, res) => {
+  const { tipo, preco } = req.body;
+
+  const sql = 'INSERT INTO acessorios (tipo, preco) VALUES (?, ?)';
+  connection.query(sql, [tipo, preco], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Erro ao adicionar acessório.');
+    }
+    const newAcessorio = { id: result.insertId, tipo, preco };
+    res.status(201).json(newAcessorio);
+  });
+});
+
+// Rota para atualizar um acessório existente
+app.put('/acessorios/:id', (req, res) => {
+  const { id } = req.params;
+  const { tipo, preco } = req.body;
+
+  const sql = 'UPDATE acessorios SET tipo = ?, preco = ? WHERE id = ?';
+  connection.query(sql, [tipo, preco, id], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Erro ao atualizar acessório.');
+    }
+    const updatedAcessorio = { id, tipo, preco };
+    res.status(200).json(updatedAcessorio);
+  });
+});
+
+// Rota para excluir um acessório
+app.delete('/acessorios/:id', (req, res) => {
+  const { id } = req.params;
+
+  const sql = 'DELETE FROM acessorios WHERE id = ?';
+  connection.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Erro ao excluir acessório.');
+    }
+    res.status(200).send('Acessório excluído com sucesso');
+  });
+});
 
 export default app;
